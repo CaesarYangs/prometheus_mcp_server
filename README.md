@@ -10,9 +10,13 @@ A Model Context Protocol (MCP) server for retrieving data from Prometheus databa
 ## Capibilites
 
 ✅ Retrieve comprehensive metric information, including names and descriptions, from Prometheus
+
 ✅ Fetch and analyze specific metric data using metric names
+
 🔄 Analyze metric data within custom time ranges (in testing)
+
 🚧 Filter and match data using specific labels (in development)
+
 ⏳ Additional features planned...
 
 ## Getting Started
