@@ -1,0 +1,16 @@
+{
+    "mcpServers": {
+        "prometheus": {
+            "command": "uv",
+            "args": [
+                "--directory",
+                "/path/to/prometheus_mcp_server",
+                "run",
+                "server.py"
+            ],
+            "env": {
+                "PROMETHEUS_HOST": "http://localhost:9090"
+            }
+        }
+    }
+}

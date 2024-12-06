@@ -1,0 +1,50 @@
+# Python-generated files
+__pycache__/
+*.py[cod]
+*.so
+*.dylib
+build/
+dist/
+wheels/
+*.egg-info
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+Lib/
+Scripts/
+env/
+.env/
+
+# Development environment
+.python-version
+.python-version-lock
+uv.lock
+pyvenv.cfg
+
+# IDE settings (optional)
+.vscode/
+.idea/
+.project
+.pydevproject
+
+# Distribution directories
+*.dist-info/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# MacOS
+.DS_Store
+
+# MyPy
+.mypy_cache/

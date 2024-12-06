@@ -1,0 +1,3 @@
+[project]
+name = "prometheus_mcp_server"
+version = "0.1"
