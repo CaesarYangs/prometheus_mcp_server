@@ -1,5 +1,4 @@
 from prometheus_api import *
-# from prometheus_api_client import *
 
 
 class PrometheusHandler:
@@ -14,16 +13,23 @@ class PrometheusHandler:
         return self.all_metrics_full
 
     def get_range_data(self, metric_name, range=None,include_index=False):
-        metric_data = self.prom.get_metric_range_data(metric_name=metric_name)
+        metric_data = self.prom.get_metric_range_data(metric_name=metric_name,logger=self.logger)
 
         range_data = []
         metric_object_list = MetricsList(metric_data)
+        
         for metric in metric_object_list:
+            self.logger.info(f"{metric}")
             values = []
             for index, row in metric.metric_values.iterrows():
-                timestamp = row['ds']
-                value = row['y']
-                
+                timestamp = []
+                value = []
+                try:
+                    timestamp = row['ds']
+                    value = row['y']
+                except Exception as e:
+                    raise ValueError(f"Invalid metric value fetch")
+                    
                 data_row = (timestamp, value)
                 if include_index:
                     data_row = (index, timestamp, value)

@@ -5,6 +5,8 @@ import requests
 from datetime import datetime, timedelta
 import numpy
 import json
+import pandas
+import copy
 import bz2
 import os
 import asyncio
@@ -262,11 +264,12 @@ class PrometheusConnect:
         self,
         metric_name: str,
         label_config: dict = None,
-        start_time: datetime = (datetime.now() - timedelta(minutes=10)),
+        start_time: datetime = (datetime.now() - timedelta(minutes=1)),
         end_time: datetime = datetime.now(),
         chunk_size: timedelta = None,
         store_locally: bool = False,
         params: dict = None,
+        logger = None
     ):
         r"""
         Get the current metric value for the specified metric and label configuration.
@@ -300,6 +303,7 @@ class PrometheusConnect:
         if not (isinstance(start_time, datetime) and isinstance(end_time, datetime)):
             raise TypeError("start_time and end_time can only be of type datetime.datetime")
 
+        
         if not chunk_size:
             chunk_size = end_time - start_time
         if not isinstance(chunk_size, timedelta):
@@ -307,21 +311,20 @@ class PrometheusConnect:
 
         start = round(start_time.timestamp())
         end = round(end_time.timestamp())
-
+        
         if end_time < start_time:
             raise ValueError("end_time must not be before start_time")
 
         if (end_time - start_time).total_seconds() < chunk_size.total_seconds():
             raise ValueError("specified chunk_size is too big")
         chunk_seconds = round(chunk_size.total_seconds())
-
+        
         if label_config:
             label_list = [str(key + "=" + "'" + label_config[key] + "'") for key in label_config]
             query = metric_name + "{" + ",".join(label_list) + "}"
         else:
             query = metric_name
         _LOGGER.debug("Prometheus Query: %s", query)
-
         while start < end:
             if start + chunk_seconds > end:
                 chunk_seconds = end - start
@@ -356,6 +359,7 @@ class PrometheusConnect:
                 )
 
             start += chunk_seconds
+        
         return data
 
     def _store_metric_values_local(self, metric_name, values, end_timestamp, compressed=False):
@@ -663,7 +667,7 @@ class Metric:
     def __init__(self, metric, oldest_data_datetime=None):
         """Functions as a Constructor for the Metric object."""
         if not isinstance(
-            oldest_data_datetime, (datetime.datetime, datetime.timedelta, type(None))
+            oldest_data_datetime, (datetime, type(None))  # TODO: change detection of time input here
         ):
             # if it is neither a datetime object nor a timedelta object raise exception
             raise TypeError(
@@ -678,7 +682,7 @@ class Metric:
             self.oldest_data_datetime = oldest_data_datetime
         else:
             self.metric_name = metric["metric"]["__name__"]
-            self.label_config = deepcopy(metric["metric"])
+            self.label_config = copy.deepcopy(metric["metric"])
             self.oldest_data_datetime = oldest_data_datetime
             del self.label_config["__name__"]
 

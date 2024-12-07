@@ -2,3 +2,4 @@ mcp
 pydantic
 requests
 numpy
+pandas
