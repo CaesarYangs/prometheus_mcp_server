@@ -85,6 +85,10 @@ async def list_tools() -> list[Tool]:
                     "metric_name": {
                         "name": "string",
                         "description": "metric to fetch",
+                    },
+                    "metric_range": {
+                        "name": "int",
+                        "description": "specific range of metric to fetch(number of minutes)",
                     }
                 },
             },
@@ -103,9 +107,9 @@ async def call_tool(
 
     try:
         metric_name = arguments['metric_name']
-        # metric_range = arguments['metric_range']
+        metric_range = arguments['metric_range']
 
-        value = prometheus_handler.get_range_data(metric_name)
+        value = prometheus_handler.get_range_data(metric_name=metric_name, metric_range=metric_range)
 
         return [TextContent(type="text", text=f"metric:{metric_name} range value return:{value}")]
 

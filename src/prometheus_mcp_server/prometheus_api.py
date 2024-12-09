@@ -264,6 +264,7 @@ class PrometheusConnect:
         self,
         metric_name: str,
         label_config: dict = None,
+        metric_range=None,
         start_time: datetime = (datetime.now() - timedelta(minutes=1)),
         end_time: datetime = datetime.now(),
         chunk_size: timedelta = None,
@@ -295,6 +296,9 @@ class PrometheusConnect:
         """
         params = params or {}
         data = []
+        
+        if metric_range is not None:
+            start_time: datetime = (datetime.now() - timedelta(minutes=metric_range)),
 
         _LOGGER.debug("start_time: %s", start_time)
         _LOGGER.debug("end_time: %s", end_time)

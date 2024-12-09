@@ -12,8 +12,8 @@ class PrometheusHandler:
         self.all_metrics_full = self.prom.all_metric_meta()
         return self.all_metrics_full
 
-    def get_range_data(self, metric_name, range=None,include_index=False):
-        metric_data = self.prom.get_metric_range_data(metric_name=metric_name,logger=self.logger)
+    def get_range_data(self, metric_name, metric_range=None,include_index=False):
+        metric_data = self.prom.get_metric_range_data(metric_name=metric_name,metric_range=metric_range,logger=self.logger)
 
         range_data = []
         metric_object_list = MetricsList(metric_data)
