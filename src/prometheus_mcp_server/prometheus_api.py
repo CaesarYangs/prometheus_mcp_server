@@ -2,7 +2,7 @@ from requests import Session
 from requests.packages.urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import numpy
 import json
 import pandas
@@ -264,7 +264,7 @@ class PrometheusConnect:
         self,
         metric_name: str,
         label_config: dict = None,
-        metric_range=None,
+        metric_range:str =None,
         start_time: datetime = (datetime.now() - timedelta(minutes=1)),
         end_time: datetime = datetime.now(),
         chunk_size: timedelta = None,
@@ -298,7 +298,8 @@ class PrometheusConnect:
         data = []
         
         if metric_range is not None:
-            start_time: datetime = (datetime.now() - timedelta(minutes=metric_range)),
+            now = datetime.now()  # 使用 utcnow() 来获取一个 offset-naive 的 UTC 时间
+            start_time = now - timedelta(minutes=int(metric_range))
 
         _LOGGER.debug("start_time: %s", start_time)
         _LOGGER.debug("end_time: %s", end_time)

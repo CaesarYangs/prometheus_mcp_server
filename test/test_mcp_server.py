@@ -41,7 +41,7 @@ async def test_read_resource():
 async def test_call_valid_tool(tool_name="fetch_metric"):
     argument = {
         "metric_name": "go_gc_heap_frees_by_size_bytes_bucket",
-        "metric_range":""
+        "metric_range":"5"
     }
     res = await call_tool(tool_name, argument)
     logger.info(f"res:{res[0]}")

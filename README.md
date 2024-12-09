@@ -13,7 +13,7 @@ A Model Context Protocol (MCP) server for retrieving data from Prometheus databa
 
 ✅ Fetch and analyze specific metric data using metric names
 
-🔄 Analyze metric data within custom time ranges (in testing)
+✅ Analyze metric data within custom time ranges
 
 🚧 Filter and match data using specific labels (in development)
 
@@ -119,4 +119,4 @@ MIT License
 This project was inspired by or uses code from the following open-source projects:
 
 - [Prometheus API Client](https://prometheus-api-client-python.readthedocs.io/en/latest/source/prometheus_api_client.html) - The Prometheus API calling code is modified based on this library
-- [MySQL MCP Server](https://github.com/designcomputer/mysql_mcp_server/blob/main/src/mysql_mcp_server/server.py) - A similar database oriented MCP server implmentation
+- [MySQL MCP Server](https://github.com/designcomputer/mysql_mcp_server/blob/main/src/mysql_mcp_server) - A similar database oriented MCP server implmentation
