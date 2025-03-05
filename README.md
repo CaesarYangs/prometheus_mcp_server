@@ -54,6 +54,18 @@ pip install -r requirements.txt
 
 ## Usage
 
+### With Cursor Env
+
+Ready to update depend on more easy-to-use Cursor environment.
+
+Set this in the MCP section in Cursor Settings:
+
+```
+uv --directory /path/to/prometheus_mcp_server run server.py
+```
+
+![](./docs/imgs/cursor_screenshot.png)
+
 ### With MCP Client(include Claude Desktop)
 
 Config your Claude Desktop app's configuration at `~/Library/Application Support/Claude/claude_desktop_config.json`(macos)
