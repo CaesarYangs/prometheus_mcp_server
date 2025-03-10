@@ -7,7 +7,6 @@ A Model Context Protocol (MCP) server for retrieving data from Prometheus databa
 - Metric Analysis: Perform statistical analysis on retrieved metrics.
 - Usage Search: Find and explore metric usage patterns.
 - Complex Querying: Execute advanced PromQL queries for in-depth data exploration.
-- 
 
 ## Capibilites
 
