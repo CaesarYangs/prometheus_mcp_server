@@ -1,0 +1,22 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    properties:
+      prometheusHost:
+        type: string
+        default: http://localhost:9090
+        description: URL of the Prometheus host to connect to.
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'python3',
+      args: ['src/prometheus_mcp_server/server.py'],
+      env: { PROMETHEUS_HOST: config.prometheusHost }
+    })
+  exampleConfig:
+    prometheusHost: http://localhost:9090
