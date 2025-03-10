@@ -1,4 +1,5 @@
 # MCP Server for Prometheus
+[![smithery badge](https://smithery.ai/badge/@CaesarYangs/prometheus_mcp_server)](https://smithery.ai/server/@CaesarYangs/prometheus_mcp_server)
 
 A Model Context Protocol (MCP) server for retrieving data from Prometheus databases. This MCP server enables Large Language Models (LLMs) to invoke tool functions that retrieve and analyze vast amounts of metric data, search metric usage, execute complex queries, and perform other related tasks through pre-defined routes with enhanced control over usage.
 
@@ -6,6 +7,7 @@ A Model Context Protocol (MCP) server for retrieving data from Prometheus databa
 - Metric Analysis: Perform statistical analysis on retrieved metrics.
 - Usage Search: Find and explore metric usage patterns.
 - Complex Querying: Execute advanced PromQL queries for in-depth data exploration.
+- 
 
 ## Capibilites
 
@@ -23,6 +25,15 @@ A Model Context Protocol (MCP) server for retrieving data from Prometheus databa
 
 MCP runing requires a python virtual environment(venv), all packages should be installed into this venv so the MCP server can be automically started.
 
+### Installing via Smithery
+
+To install Prometheus MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@CaesarYangs/prometheus_mcp_server):
+
+```bash
+npx -y @smithery/cli install @CaesarYangs/prometheus_mcp_server --client claude
+```
+
+### Manual Installation
 **Prepare python env**
 
 ```sh
