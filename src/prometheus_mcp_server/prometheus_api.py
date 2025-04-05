@@ -263,14 +263,14 @@ class PrometheusConnect:
     def get_metric_range_data(
         self,
         metric_name: str,
+        metric_range: str,
         label_config: dict = None,
-        metric_range:str =None,
         start_time: datetime = (datetime.now() - timedelta(minutes=1)),
         end_time: datetime = datetime.now(),
         chunk_size: timedelta = None,
         store_locally: bool = False,
         params: dict = None,
-        logger = None
+        logger=None
     ):
         r"""
         Get the current metric value for the specified metric and label configuration.
@@ -296,7 +296,7 @@ class PrometheusConnect:
         """
         params = params or {}
         data = []
-        
+
         if metric_range is not None:
             now = datetime.now()  # 使用 utcnow() 来获取一个 offset-naive 的 UTC 时间
             start_time = now - timedelta(minutes=int(metric_range))
@@ -308,7 +308,6 @@ class PrometheusConnect:
         if not (isinstance(start_time, datetime) and isinstance(end_time, datetime)):
             raise TypeError("start_time and end_time can only be of type datetime.datetime")
 
-        
         if not chunk_size:
             chunk_size = end_time - start_time
         if not isinstance(chunk_size, timedelta):
@@ -316,14 +315,14 @@ class PrometheusConnect:
 
         start = round(start_time.timestamp())
         end = round(end_time.timestamp())
-        
+
         if end_time < start_time:
             raise ValueError("end_time must not be before start_time")
 
         if (end_time - start_time).total_seconds() < chunk_size.total_seconds():
             raise ValueError("specified chunk_size is too big")
         chunk_seconds = round(chunk_size.total_seconds())
-        
+
         if label_config:
             label_list = [str(key + "=" + "'" + label_config[key] + "'") for key in label_config]
             query = metric_name + "{" + ",".join(label_list) + "}"
@@ -364,7 +363,7 @@ class PrometheusConnect:
                 )
 
             start += chunk_seconds
-        
+
         return data
 
     def _store_metric_values_local(self, metric_name, values, end_timestamp, compressed=False):

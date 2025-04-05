@@ -80,14 +80,14 @@ async def list_tools() -> list[Tool]:
             description="Fetches metric and returns its content",
             inputSchema={
                 "type": "object",
-                "required": ["metirc_name"],
+                "required": ["metric_name", "metric_range"],
                 "properties": {
                     "metric_name": {
-                        "name": "string",
+                        "type": "string",
                         "description": "metric to fetch",
                     },
                     "metric_range": {
-                        "name": "int",
+                        "type": "int",
                         "description": "specific range of metric to fetch(number of minutes)",
                     }
                 },
